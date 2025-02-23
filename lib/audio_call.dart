@@ -6,8 +6,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'constant.dart';
 
 class AudioCallScreen extends StatefulWidget {
-  const AudioCallScreen({Key? key}) : super(key: key);
-
+  const AudioCallScreen({required this.roomId, Key? key}) : super(key: key);
+  final String roomId;
   @override
   _AudioCallScreenState createState() => _AudioCallScreenState();
 }
@@ -64,7 +64,7 @@ class _AudioCallScreenState extends State<AudioCallScreen> {
 
     await _engine.joinChannel(
       token: AgoraManager.token,
-      channelId: AgoraManager.channelName,
+      channelId: widget.roomId, //AgoraManager.channelName,
       uid: 0,
       options: const ChannelMediaOptions(),
     );

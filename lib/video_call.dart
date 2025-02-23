@@ -6,8 +6,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'constant.dart';
 
 class VideoCallScreen extends StatefulWidget {
-  const VideoCallScreen({Key? key}) : super(key: key);
-
+  const VideoCallScreen({required this.roomId, Key? key}) : super(key: key);
+  final String roomId;
   @override
   _VideoCallScreenState createState() => _VideoCallScreenState();
 }
@@ -64,7 +64,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
 
     await _engine.joinChannel(
       token: AgoraManager.token,
-      channelId: AgoraManager.channelName,
+      channelId: widget.roomId, //AgoraManager.channelName,
       uid: 0,
       options: const ChannelMediaOptions(),
     );
@@ -86,7 +86,9 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
         controller: VideoViewController.remote(
           rtcEngine: _engine,
           canvas: VideoCanvas(uid: _remoteUid),
-          connection: const RtcConnection(channelId: 'channel1'),
+          connection: RtcConnection(
+            channelId: widget.roomId, //AgoraManager.channelName,
+          ),
         ),
       );
     } else {

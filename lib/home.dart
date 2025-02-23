@@ -11,6 +11,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  TextEditingController _textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,13 +30,12 @@ class _HomeScreenState extends State<HomeScreen> {
               fit: BoxFit.cover,
             ),
           ),
-          Text(
-            'Ahmed Elsapagh',
-            // style: Theme.of(context).textTheme.headline3,
-          ),
-          Text(
-            '+201201709414',
-            // style: Theme.of(context).textTheme.headline6,
+          TextField(
+            controller: _textEditingController,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Enter room id',
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -47,7 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => VideoCallScreen()));
+                            builder: (context) => VideoCallScreen(
+                                  roomId: _textEditingController.text,
+                                )));
                   },
                   icon: Icon(
                     Icons.video_call,
@@ -60,7 +62,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => AudioCallScreen()));
+                            builder: (context) => AudioCallScreen(
+                                  roomId: _textEditingController.text,
+                                )));
                   },
                   icon: Icon(
                     Icons.phone,
